@@ -14,9 +14,9 @@ class CustomAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     var title: String?
     var subtitle: String?
-    var url : String?
+    var url : URL?
     
-    init(coordinate: CLLocationCoordinate2D ,title: String, subtitle: String, url: String) {
+    init(coordinate: CLLocationCoordinate2D ,title: String?, subtitle: String?, url: URL?) {
        
         self.coordinate = coordinate
         self.title = title

@@ -10,15 +10,21 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate {
 
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     @IBOutlet var mapView: MKMapView!
+    
     var locationManager: CLLocationManager?
+    
+    var annotationList: [MKAnnotation] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.mapView.delegate = self
+        self.searchBar.delegate = self
         
         self.locationManager = CLLocationManager()
         self.locationManager?.delegate = self
@@ -27,7 +33,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         self.mapView.showsUserLocation = true
         
         //adding pins
-        let turnToTech = CustomAnnotation(coordinate: CLLocationCoordinate2D.init(latitude: 40.709037222006089, longitude: -74.01494278579392), title: "TurnToTech", subtitle: "Mobile dev school", url: "https://turntotech.io")
+        let turnToTech = CustomAnnotation(coordinate: CLLocationCoordinate2D.init(latitude: 40.709037222006089, longitude: -74.01494278579392), title: "TurnToTech", subtitle: "Mobile dev school", url: URL(string: "http://turntotech.io")!)
         
         
         
@@ -39,7 +45,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
 
     }
 
-    
     @IBAction func setMap(_ sender: UISegmentedControl) {
         
         switch sender.selectedSegmentIndex {
@@ -66,7 +71,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
 //        self.mapView.setRegion(region, animated: true)
     }
 
-        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             
             //let annotationView: MKAnnotationView? = nil
             
@@ -111,6 +116,51 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
         
     }
+    
+    func startSearch(){
+        
+        let request = MKLocalSearchRequest()
+        request.naturalLanguageQuery = self.searchBar.text
+        request.region = mapView.region
+        
+        let search = MKLocalSearch(request: request)
+        
+        search.start { (response, error) in
+            guard let response = response else {
+                print("Search error: \(error)")
+                return
+            }
+            
+            for item in response.mapItems {
+                
+//                if let name = item.name, let url = item.url, let phoneNumb = item.phoneNumber {
+//                    print("\(name)\(url)\(phoneNumb)")
+//                }
+                
+                
+                
+                let newAnnotation = CustomAnnotation(coordinate: item.placemark.coordinate, title: item.name, subtitle: item.phoneNumber, url: item.url)
+                
+                self.mapView.addAnnotation(newAnnotation)
+                
+                self.annotationList.append(newAnnotation)
+                
+            }
+        }
+        
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        self.view.endEditing(true)
+        self.mapView.removeAnnotations(self.annotationList)
+        self.startSearch()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

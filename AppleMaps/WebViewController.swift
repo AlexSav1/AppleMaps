@@ -23,7 +23,8 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         self.webView = WKWebView(frame: self.view.frame, configuration: theConfig)
         
         
-        let url = URL(string: (self.selectedAnnotation?.url)!)
+        
+        let url = self.selectedAnnotation?.url
         let request = URLRequest(url: url!)
         
         _ = self.webView?.load(request)
