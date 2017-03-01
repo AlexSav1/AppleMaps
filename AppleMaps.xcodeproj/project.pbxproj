@@ -16,6 +16,7 @@
 		AAA286E81E65E40C00402A43 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAA286E71E65E40C00402A43 /* CoreLocation.framework */; };
 		AAA286EA1E660FFC00402A43 /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA286E91E660FFC00402A43 /* CustomAnnotation.swift */; };
 		AAA286EC1E66165800402A43 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA286EB1E66165800402A43 /* WebViewController.swift */; };
+		AAA286EE1E67689000402A43 /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA286ED1E67689000402A43 /* DAO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		AAA286E71E65E40C00402A43 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		AAA286E91E660FFC00402A43 /* CustomAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		AAA286EB1E66165800402A43 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		AAA286ED1E67689000402A43 /* DAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DAO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 			children = (
 				AAA286D21E65DDA600402A43 /* AppDelegate.swift */,
 				AAA286D41E65DDA600402A43 /* ViewController.swift */,
+				AAA286ED1E67689000402A43 /* DAO.swift */,
 				AAA286EB1E66165800402A43 /* WebViewController.swift */,
 				AAA286E91E660FFC00402A43 /* CustomAnnotation.swift */,
 				AAA286D61E65DDA600402A43 /* Main.storyboard */,
@@ -162,6 +165,7 @@
 				AAA286D31E65DDA600402A43 /* AppDelegate.swift in Sources */,
 				AAA286EA1E660FFC00402A43 /* CustomAnnotation.swift in Sources */,
 				AAA286EC1E66165800402A43 /* WebViewController.swift in Sources */,
+				AAA286EE1E67689000402A43 /* DAO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

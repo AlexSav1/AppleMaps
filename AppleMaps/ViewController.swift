@@ -10,13 +10,14 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate, MapReloadDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet var mapView: MKMapView!
     
     var locationManager: CLLocationManager?
+    let datamanager : DAO = DAO.sharedInstance
     
     var annotationList: [MKAnnotation] = []
     
@@ -26,6 +27,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         self.mapView.delegate = self
         self.searchBar.delegate = self
         
+        datamanager.delegate = self
         self.locationManager = CLLocationManager()
         self.locationManager?.delegate = self
         self.locationManager?.requestWhenInUseAuthorization()
@@ -150,11 +152,22 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
     }
     
+    func search(){
+        
+        self.mapView.removeAnnotations(self.datamanager.annotations)
+        self.datamanager.annotations.removeAll()
+        self.datamanager.searchForPlaces(searchText:  self.searchBar.text!, region: mapView.region)
+    }
+    
+    func reloadMap() {
+        self.mapView.addAnnotations(self.datamanager.annotations)
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         self.view.endEditing(true)
         self.mapView.removeAnnotations(self.annotationList)
-        self.startSearch()
+        self.search()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
